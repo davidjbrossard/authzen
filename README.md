@@ -9,7 +9,7 @@ This repository contains
 
 # The sample policy
 
-https://github.com/davidjbrossard/authzen/blob/3af1adcd023e0631b2253bab74bbc41e9c7ac82e/src-alfa/policy.alfa
+https://github.com/davidjbrossard/authzen/blob/3af1adcd023e0631b2253bab74bbc41e9c7ac82e/src-alfa/policy.alfa#L1-L85
 
 ## Overview
 
