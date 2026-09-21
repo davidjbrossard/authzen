@@ -19,9 +19,20 @@ request:
     type: basic
     username: ads-user
     password: "{{process.env.ADS_PASSWORD}}"
+  variables:
+    - name: host
+      value: http://localhost:8080/
+    - name: authzen_path
+      value: access/v1/evaluation
+    - name: xacml_path
+      value: authorize
 bundled: false
 extensions:
   bruno:
     ignore:
       - node_modules
       - .git
+    presets:
+      request:
+        type: http
+        url: "{{host}}{{authzen_path}}"

@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8080/authorize
+  url: "{{host}}{{xacml_path}}"
   body:
     type: json
     data: |-
@@ -38,3 +38,102 @@ settings:
   followRedirects: true
   maxRedirects: 5
   forwardAuthorizationHeader: false
+
+examples:
+  - name: Sample XACML JSON Response
+    request:
+      url: http://localhost:8080/authorize
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "Request":{
+              "ReturnPolicyIdList": true,
+              "AccessSubject":{
+                "Attribute":[
+                  {
+                    "AttributeId":"user.role",
+                    "Value":"manager"
+                  }
+                ]
+              },
+              "Action":{
+                "Attribute":[
+                  {
+                    "AttributeId":"action.name",
+                    "Value":"view"
+                  }
+                ]
+              }
+            }
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-xss-protection
+          value: "0"
+        - name: cache-control
+          value: no-cache, no-store, max-age=0, must-revalidate
+        - name: pragma
+          value: no-cache
+        - name: expires
+          value: "0"
+        - name: x-frame-options
+          value: DENY
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Mon, 21 Sep 2026 20:56:15 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "Response": [
+              {
+                "Decision": "Deny",
+                "AssociatedAdvice": [
+                  {
+                    "Id": "tutorial.reason",
+                    "AttributeAssignment": [
+                      {
+                        "AttributeId": "tutorial.message",
+                        "Value": "Access was denied because...",
+                        "Category": "urn:oasis:names:tc:xacml:3.0:attribute-category:environment",
+                        "DataType": "http://www.w3.org/2001/XMLSchema#string"
+                      },
+                      {
+                        "AttributeId": "user.role",
+                        "Value": "manager",
+                        "Category": "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject",
+                        "DataType": "http://www.w3.org/2001/XMLSchema#string"
+                      },
+                      {
+                        "AttributeId": "action.name",
+                        "Value": "view",
+                        "Category": "urn:oasis:names:tc:xacml:3.0:attribute-category:action",
+                        "DataType": "http://www.w3.org/2001/XMLSchema#string"
+                      }
+                    ]
+                  }
+                ],
+                "PolicyIdentifierList": {
+                  "PolicySetIdReference": [
+                    {
+                      "Id": "http://axiomatics.com/alfa/identifier/tutorial.main",
+                      "Version": "1.0"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
