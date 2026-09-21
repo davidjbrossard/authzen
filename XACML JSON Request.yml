@@ -1,0 +1,39 @@
+info:
+  name: XACML JSON Request
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/authorize
+  body:
+    type: json
+    data: |-
+      {
+        "Request":{
+          "AccessSubject":{
+            "Attribute":[
+              {
+                "AttributeId":"user.role",
+                "Value":"manager"
+              }
+            ]
+          },
+          "Action":{
+            "Attribute":[
+              {
+                "AttributeId":"action.name",
+                "Value":"view"
+              }
+            ]
+          }
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,110 @@
+info:
+  name: Can Alice the manager delete record 101?
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:8080/access/v1/evaluation
+  body:
+    type: json
+    data: |-
+      {
+        "subject":{
+          "id": "alice",
+          "type": "username",
+          "properties":{
+            "user.role" : "manager"
+          }
+        },
+        "action":{
+          "name": "delete"
+        },
+        "resource":{
+          "id": "123",
+          "type": "record"
+        },
+        "context": {}
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: No, Alice the manager cannot delete record 123.
+    request:
+      url: http://localhost:8080/access/v1/evaluation
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "subject":{
+              "id": "alice",
+              "type": "username",
+              "properties":{
+                "user.role" : "manager"
+              }
+            },
+            "action":{
+              "name": "delete"
+            },
+            "resource":{
+              "id": "123",
+              "type": "record"
+            },
+            "context": {}
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-xss-protection
+          value: "0"
+        - name: cache-control
+          value: no-cache, no-store, max-age=0, must-revalidate
+        - name: pragma
+          value: no-cache
+        - name: expires
+          value: "0"
+        - name: x-frame-options
+          value: DENY
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Fri, 18 Sep 2026 17:57:06 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "context": {
+              "xacml": {
+                "decision": "Deny",
+                "advice": [
+                  {
+                    "attributes": {
+                      "user.role": "manager",
+                      "action.name": "delete",
+                      "resource.type": "record",
+                      "tutorial.message": "Access was denied because..."
+                    },
+                    "id": "tutorial.reason"
+                  }
+                ]
+              }
+            },
+            "decision": false
+          }

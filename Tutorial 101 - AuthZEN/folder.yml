@@ -1,0 +1,7 @@
+info:
+  name: Tutorial 101 - AuthZEN
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit
