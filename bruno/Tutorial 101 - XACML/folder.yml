@@ -1,7 +1,7 @@
 info:
-  name: Tutorial 101 - AuthZEN
+  name: Tutorial 101 - XACML
   type: folder
-  seq: 2
+  seq: 3
 
 request:
   auth: inherit

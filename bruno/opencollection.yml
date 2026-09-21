@@ -18,7 +18,7 @@ request:
   auth:
     type: basic
     username: ads-user
-    password: Attributes
+    password: ${ADS_PASSWORD}
 bundled: false
 extensions:
   bruno:
