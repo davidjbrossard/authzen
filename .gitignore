@@ -4,6 +4,9 @@
 # Dependencies
 node_modules
 
-# OS files
-.DS_Store
-Thumbs.db
+# ALFA/XACML
+src-gen
+
+# Axiomatics
+*.license
+*.jar

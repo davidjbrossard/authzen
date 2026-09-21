@@ -11,6 +11,7 @@ http:
     data: |-
       {
         "Request":{
+          "ReturnPolicyIdList": true,
           "AccessSubject":{
             "Attribute":[
               {

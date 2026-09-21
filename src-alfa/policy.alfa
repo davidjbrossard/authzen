@@ -1,0 +1,85 @@
+namespace tutorial{
+
+    policyset main{
+        apply denyUnlessPermit
+        record
+        on deny{
+            advice reason{
+                message = "Access was denied because..."
+                user.role = user.role
+                user.department = user.department
+                action.name = action.name
+                resource.Type = resource.Type
+                record.department = record.department
+            }
+        }
+    }
+
+    /**
+     * Record access
+     */
+    policyset record{
+        target clause resource.Type == "record"
+        apply firstApplicable
+        policy view{
+            target clause action.name == "view"
+            apply firstApplicable
+            rule managers{
+                target clause user.role == "manager"
+                permit
+            }
+            rule sameDepartment{
+                permit
+                condition user.department == record.department
+            }
+        }
+    }
+
+    advice reason = "tutorial.reason"
+
+    attribute message {
+        category = environmentCat
+        id = "tutorial.message"
+        type = string
+    }
+}
+
+
+namespace user{
+    attribute role{
+        category = subjectCat
+        id = "user.role"
+        type = string
+    }
+    attribute department{
+        category = subjectCat
+        id = "user.department"
+        type = string
+    }
+}
+
+namespace resource{
+
+    attribute Type{
+        category = resourceCat
+        id = "resource.type"
+        type = string
+    }
+}
+
+namespace record{
+
+    attribute department{
+        category = resourceCat
+        id = "record.department"
+        type = string
+    }
+}
+
+namespace action{
+    attribute name{
+        category = actionCat
+        id = "action.name"
+        type = string
+    }
+}
