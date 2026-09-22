@@ -9,7 +9,6 @@ license: ${ADS_LICENSE_PATH:./conf/}axiomatics_ADS.license
 domain:
   #path: ${ADS_DOMAIN_PATH:-./conf/}domain_${ADS_DOMAIN_NAME:-tutorial}.yaml
   path: ${ADS_DOMAIN_PATH:./conf/}domain.yaml
-  #path: https://mdp.eu-north-1.prod.console.axiomatics.app/api/adm/namespaces/9d4b7624-e20e-4fd5-82d7-96cd31ab9a10/names/Test/domain
   #path: http://localhost/api/adm/namespaces/56df8bea-a231-4ac6-9ead-cfeaad5c773a/names/Tutorial/domain
  
   refreshInterval: 10 seconds
