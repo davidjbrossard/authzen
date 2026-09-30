@@ -117,3 +117,97 @@ examples:
             },
             "decision": false
           }
+  - name: Alice can view but cannot delete
+    description: In this sample response, we see the 2 AuthZEN boolean decisions as well as an additional XACML advice.
+    request:
+      url: "{{host}}{{authzen_path_evaluations}}"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "subject": {
+              "id": "alice",
+              "type": "username",
+              "properties": {
+                "user.role": "manager"
+              }
+            },
+            "resource": {
+              "id": "123",
+              "type": "record"
+            },
+            "context": {},
+            "evaluations": [
+              {
+                "action": {
+                  "name": "view"
+                }
+              },
+              {
+                "action": {
+                  "name": "delete"
+                }
+              }
+            ]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-xss-protection
+          value: "0"
+        - name: cache-control
+          value: no-cache, no-store, max-age=0, must-revalidate
+        - name: pragma
+          value: no-cache
+        - name: expires
+          value: "0"
+        - name: x-frame-options
+          value: DENY
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Wed, 30 Sep 2026 13:01:33 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "evaluations": [
+              {
+                "context": {
+                  "xacml": {
+                    "decision": "Permit"
+                  }
+                },
+                "decision": true
+              },
+              {
+                "context": {
+                  "xacml": {
+                    "decision": "Deny",
+                    "advice": [
+                      {
+                        "attributes": {
+                          "user.role": "manager",
+                          "action.name": "delete",
+                          "resource.type": "record",
+                          "tutorial.message": "Access was denied because..."
+                        },
+                        "id": "tutorial.reason"
+                      }
+                    ]
+                  }
+                },
+                "decision": false
+              }
+            ]
+          }
