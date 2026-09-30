@@ -9,12 +9,12 @@ license: ${ADS_LICENSE_PATH:./conf/}axiomatics_ADS.license
 domain:
   #path: ${ADS_DOMAIN_PATH:-./conf/}domain_${ADS_DOMAIN_NAME:-tutorial}.yaml
   path: ${ADS_DOMAIN_PATH:./conf/}domain.yaml
-  #path: http://localhost/api/adm/namespaces/56df8bea-a231-4ac6-9ead-cfeaad5c773a/names/Tutorial/domain
+  # path: https://localhost/api/adm/namespaces/<PID>/names/Tutorial_101/domain
  
   refreshInterval: 10 seconds
   reportNotReadyOnDomainRefreshError: false
-  authentication:
-    oauth2ClientId: hub-adm-client
+  # authentication:
+  #   oauth2ClientId: hub-adm-client
 engine:
   mode: ads_caq
 spring:
@@ -23,12 +23,12 @@ spring:
       client:
         registration:
           hub-adm-client:
-            client-id: my-hub-client
-            client-secret: nJsucpit30RG6Z2hU5mLltMjhnlWlYGN
+            client-id: engineering-client
+            client-secret: ${ADS_CLIENT_SECRET}
             authorization-grant-type: client_credentials
         provider: 
           hub-adm-client:
-            token-uri: http://localhost/auth/realms/hub/protocol/openid-connect/token
+            token-uri: https://localhost/auth/realms/hub/protocol/openid-connect/token
     user:
       name: ads-user
       password: ${ADS_PASSWORD}

@@ -26,6 +26,8 @@ request:
       value: access/v1/evaluation
     - name: xacml_path
       value: authorize
+    - name: authzen_path_evaluations
+      value: access/v1/evaluations
 bundled: false
 extensions:
   bruno:
