@@ -17,7 +17,7 @@ https://github.com/davidjbrossard/authzen/blob/3af1adcd023e0631b2253bab74bbc41e9
 ```mermaid
   graph LR;
       A("main")-->B;
-      B("record")-->C;
+      B("🎯 record")-->C;
       C("view")-->D1("Managers ✅");
       C("view")-->D2("Same Department ✅");
       A("main")-->E("Fallback deny ❌")
